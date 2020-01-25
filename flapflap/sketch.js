@@ -9,11 +9,11 @@ let birdSize = 60;
 let columnSpeed = -10;
 let columnWidth = 100;
 let columnDistance = 1000;
+let columns = [];
 
 let cloud1, cloud2, cloud3;
-let columns = [];
 let clouds = []
-cloudspeed = -3;
+let cloudspeed = -3;
 
 let fontsize = 40;
 let score = 0;
@@ -96,9 +96,8 @@ function Dead() {
 function send() {
   input.hide();
   submit.hide();
-  let writer = createWriter('score.csv');
-  writer.write([input.value(), score])
-  writer.close()
+  //Submit here
+  //save score and input.value() 
 }
 
 function restart() {
@@ -174,6 +173,7 @@ function UpdateColumn() {
       element.height
     );
     rect(element.columnXPos, 0, element.width, element.columnTopYHeight);
+
   });
 }
 

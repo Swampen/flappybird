@@ -47,9 +47,6 @@ function setup() {
 }
 
 function draw() {
-  if (mouseIsPressed){
-    jump();
-  }
   UpdateBackground();
   UpdateClouds();
   UpdateBird();
@@ -90,11 +87,11 @@ function Start() {
 }
 
 function Dead() {
+  isDead = true;
   textSize(fontsize * 3);
   textAlign(CENTER);
   fill(255, 50, 50);
   text("DEAD", windowWidth / 2, windowHeight / 2);
-  isDead = true;
   birdSpeed = 0;
   button.textContent = "Restart";
   button.show();

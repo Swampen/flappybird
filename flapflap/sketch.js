@@ -23,9 +23,9 @@ let bird;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  cloud1 = loadImage("assets/cloud1.PNG");
-  cloud2 = loadImage("assets/cloud2.PNG");
-  cloud3 = loadImage("assets/cloud3.PNG");
+  cloud1 = loadImage("assets/cloud1.png");
+  cloud2 = loadImage("assets/cloud2.png");
+  cloud3 = loadImage("assets/cloud3.png");
   backgroundImage = loadImage("assets/background.png");
 
   bird = loadImage("assets/bird.png");

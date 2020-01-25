@@ -1,3 +1,4 @@
+
 let bird;
 let birdXPos, birdYPos, button;
 let birdSpeed = 0;
@@ -18,6 +19,8 @@ let fontsize = 40;
 let score = 0;
 
 let isDead;
+let submit;
+let input;
 
 let backgroundImage;
 let backgroundPos = [];
@@ -32,6 +35,13 @@ function setup() {
   cloud3 = loadImage("assets/cloud3.png");
   backgroundImage = loadImage("assets/background.png");
   bird = loadImage("assets/bird.png");
+
+  input = createInput();
+  input.position(windowWidth / 2 - input.width/2, windowHeight / 2 + 175)
+  submit = createButton("SUBMIT")
+  submit.position(windowWidth / 2 - submit.width/2, windowHeight / 2 + 200);
+  submit.mousePressed(send);
+  
   Start();
 }
 
@@ -56,13 +66,15 @@ function UpdateBackground() {
 }
 
 function Start() {
+  submit.hide();
+  input.hide();
   isDead = true;
   birdSpeed = 0;
   textSize(fontsize * 3);
   textAlign(CENTER);
   text("START", windowWidth / 2, windowHeight / 2);
   button = createButton("START");
-  button.position(windowWidth / 2 - 50, windowHeight / 2 + 100);
+  button.position(windowWidth / 2 - button.width/2, windowHeight / 2 + 100);
   button.mousePressed(restart);
   noLoop();
 }
@@ -76,7 +88,17 @@ function Dead() {
   text("DEAD", windowWidth / 2, windowHeight / 2);
   button.textContent = "Restart";
   button.show();
+  submit.show();
+  input.show();
   noLoop();
+}
+
+function send() {
+  input.hide();
+  submit.hide();
+  let writer = createWriter('score.csv');
+  writer.write([input.value(), score])
+  writer.close()
 }
 
 function restart() {
@@ -87,6 +109,8 @@ function restart() {
   columns = [];
   score = 0;
   button.hide();
+  submit.hide();
+  input.hide();
   loop();
 }
 

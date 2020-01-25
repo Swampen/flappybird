@@ -1,3 +1,4 @@
+let bird;
 let birdXPos, birdYPos, button;
 let birdSpeed = 0;
 let birdAcc = 0.4;
@@ -10,8 +11,12 @@ let columnDistance = 1000;
 
 let cloud1, cloud2, cloud3;
 let columns = [];
-let clouds = [[0, 0], [200, 200], [500, 500]];
-cloudspeed = -3
+let clouds = [
+  [0, 100],
+  [500, 200],
+  [1000, 600]
+];
+cloudspeed = -3;
 
 let fontsize = 40;
 let score = 0;
@@ -19,7 +24,7 @@ let score = 0;
 let isDead;
 
 let backgroundImage;
-let bird;
+let backgroundPos = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -42,12 +47,16 @@ function draw() {
 
 function UpdateBackground() {
   imageMode(CORNER);
-  image(backgroundImage, 0, 0, backgroundImage.width, windowHeight + 20);
+  let w = backgroundImage.width;
+  let xpos = 0;
+  while (w / windowWidth > 0) {
+    image(backgroundImage, 0+xpos, 0, backgroundImage.width + 20, windowHeight + 20);
+    w = w/windowWidth 
+    xpos = backgroundImage.width
+  }
 }
 
 function Start() {
-  image(backgroundImage, 0, 0, backgroundImage.width, windowHeight + 20);
-
   isDead = true;
   birdSpeed = 0;
   textSize(fontsize * 3);
@@ -56,6 +65,9 @@ function Start() {
   button = createButton("START");
   button.position(windowWidth / 2 - 50, windowHeight / 2 + 100);
   button.mousePressed(restart);
+
+  
+
   noLoop();
 }
 
@@ -83,15 +95,15 @@ function restart() {
 }
 
 function UpdateClouds() {
-  for (let cloudpos of clouds){
-    cloudpos[0] += cloudspeed
-    if (cloudpos[0] < -500){
-      cloudpos[0] = windowWidth
+  for (let cloudpos of clouds) {
+    cloudpos[0] += cloudspeed;
+    if (cloudpos[0] < -600) {
+      cloudpos[0] = windowWidth;
     }
   }
-  image(cloud1, clouds[0][0], clouds[0][1])
-  image(cloud1, clouds[1][0], clouds[2][1])
-  image(cloud1, clouds[2][0], clouds[1][1])
+  image(cloud1, clouds[0][0], clouds[0][1]);
+  image(cloud1, clouds[1][0], clouds[2][1]);
+  image(cloud1, clouds[2][0], clouds[1][1]);
 }
 
 function UpdateBird() {

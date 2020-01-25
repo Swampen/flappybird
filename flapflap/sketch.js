@@ -185,7 +185,7 @@ function UpdateScore() {
 }
 
 function CreateColumn() {
-  let randVal = getRndInteger(100, windowHeight - 200);
+  let randVal = getRndInteger(150, windowHeight - 100);
   var newCol = {
     columnXPos: windowWidth,
     columnBottomYPos: windowHeight - randVal,

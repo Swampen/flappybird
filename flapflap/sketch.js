@@ -11,11 +11,7 @@ let columnDistance = 1000;
 
 let cloud1, cloud2, cloud3;
 let columns = [];
-let clouds = [
-  [0, 100],
-  [500, 200],
-  [1000, 600]
-];
+let clouds = []
 cloudspeed = -3;
 
 let fontsize = 40;
@@ -28,11 +24,13 @@ let backgroundPos = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  clouds = [[0, 100],
+  [parseInt(windowWidth/2.5), 200],
+  [parseInt(windowWidth/1.2), 400]];
   cloud1 = loadImage("assets/cloud1.png");
   cloud2 = loadImage("assets/cloud2.png");
   cloud3 = loadImage("assets/cloud3.png");
   backgroundImage = loadImage("assets/background.png");
-
   bird = loadImage("assets/bird.png");
   Start();
 }
@@ -49,9 +47,10 @@ function UpdateBackground() {
   imageMode(CORNER);
   let w = backgroundImage.width;
   let xpos = 0;
+  
   while (w / windowWidth > 0) {
     image(backgroundImage, 0+xpos, 0, backgroundImage.width + 20, windowHeight + 20);
-    w = w/windowWidth 
+    w = w/windowWidth;
     xpos = backgroundImage.width
   }
 }
@@ -65,9 +64,6 @@ function Start() {
   button = createButton("START");
   button.position(windowWidth / 2 - 50, windowHeight / 2 + 100);
   button.mousePressed(restart);
-
-  
-
   noLoop();
 }
 

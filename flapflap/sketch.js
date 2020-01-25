@@ -47,6 +47,9 @@ function setup() {
 }
 
 function draw() {
+  if (mouseIsPressed){
+    jump();
+  }
   UpdateBackground();
   UpdateClouds();
   UpdateBird();
@@ -211,9 +214,13 @@ function keyPressed() {
     if (isDead) {
       restart();
     } else {
-      birdSpeed = birdJump;
+      jump();
     }
   }
+}
+
+function jump(){
+  birdSpeed = birdJump
 }
 
 function getRndInteger(min, max) {

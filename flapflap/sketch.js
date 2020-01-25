@@ -1,4 +1,3 @@
-
 let bird;
 let birdXPos, birdYPos, button;
 let birdSpeed = 0;
@@ -12,7 +11,7 @@ let columnDistance = 1000;
 let columns = [];
 
 let cloud1, cloud2, cloud3;
-let clouds = []
+let clouds = [];
 let cloudspeed = -3;
 
 let fontsize = 40;
@@ -27,9 +26,11 @@ let backgroundPos = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  clouds = [[0, 100],
-  [parseInt(windowWidth/2.5), 200],
-  [parseInt(windowWidth/1.2), 400]];
+  clouds = [
+    [0, 100],
+    [parseInt(windowWidth / 2.5), 200],
+    [parseInt(windowWidth / 1.2), 400]
+  ];
   cloud1 = loadImage("assets/cloud1.png");
   cloud2 = loadImage("assets/cloud2.png");
   cloud3 = loadImage("assets/cloud3.png");
@@ -37,11 +38,11 @@ function setup() {
   bird = loadImage("assets/bird.png");
 
   input = createInput();
-  input.position(windowWidth / 2 - input.width/2, windowHeight / 2 + 175)
-  submit = createButton("SUBMIT")
-  submit.position(windowWidth / 2 - submit.width/2, windowHeight / 2 + 200);
+  input.position(windowWidth / 2 - input.width / 2, windowHeight / 2 + 175);
+  submit = createButton("SUBMIT");
+  submit.position(windowWidth / 2 - submit.width / 2, windowHeight / 2 + 200);
   submit.mousePressed(send);
-  
+
   Start();
 }
 
@@ -57,11 +58,17 @@ function UpdateBackground() {
   imageMode(CORNER);
   let w = backgroundImage.width;
   let xpos = 0;
-  
+
   while (w / windowWidth > 0) {
-    image(backgroundImage, 0+xpos, 0, backgroundImage.width + 20, windowHeight + 20);
-    w = w/windowWidth;
-    xpos = backgroundImage.width
+    image(
+      backgroundImage,
+      0 + xpos,
+      0,
+      backgroundImage.width + 20,
+      windowHeight + 20
+    );
+    w = w / windowWidth;
+    xpos = backgroundImage.width;
   }
 }
 
@@ -74,18 +81,18 @@ function Start() {
   textAlign(CENTER);
   text("START", windowWidth / 2, windowHeight / 2);
   button = createButton("START");
-  button.position(windowWidth / 2 - button.width/2, windowHeight / 2 + 100);
+  button.position(windowWidth / 2 - button.width / 2, windowHeight / 2 + 100);
   button.mousePressed(restart);
   noLoop();
 }
 
 function Dead() {
-  isDead = true;
-  birdSpeed = 0;
   textSize(fontsize * 3);
   textAlign(CENTER);
   fill(255, 50, 50);
   text("DEAD", windowWidth / 2, windowHeight / 2);
+  isDead = true;
+  birdSpeed = 0;
   button.textContent = "Restart";
   button.show();
   submit.show();
@@ -97,7 +104,7 @@ function send() {
   input.hide();
   submit.hide();
   //Submit here
-  //save score and input.value() 
+  //save score and input.value()
 }
 
 function restart() {
@@ -138,6 +145,7 @@ function UpdateBird() {
 }
 
 function UpdateColumn() {
+  if (isDead) return;
   if (columns.length < 1) {
     CreateColumn();
   } else {
@@ -155,6 +163,7 @@ function UpdateColumn() {
         birdYPos + birdSize / 2 > element.columnBottomYPos
       ) {
         Dead();
+        return;
       }
     }
 
@@ -173,7 +182,6 @@ function UpdateColumn() {
       element.height
     );
     rect(element.columnXPos, 0, element.width, element.columnTopYHeight);
-
   });
 }
 
@@ -185,11 +193,13 @@ function UpdateScore() {
 }
 
 function CreateColumn() {
-  let randVal = getRndInteger(150, windowHeight - 100);
+  let randVal = getRndInteger(50, windowHeight - 300);
   var newCol = {
     columnXPos: windowWidth,
-    columnBottomYPos: windowHeight - randVal,
-    columnTopYHeight: windowHeight - randVal - 250,
+    columnTopYHeight: randVal,
+    //columnTopYHeight: windowHeight - randVal - 250,
+    columnBottomYPos: randVal + 250,
+    //columnBottomYPos: windowHeight - randVal,
     height: windowHeight,
     width: columnWidth
   };

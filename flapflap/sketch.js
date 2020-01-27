@@ -99,14 +99,10 @@ function Start() {
   scoreboardbtn = createButton("SCOREBOARD");
   scoreboardbtn.position(
     windowWidth / 2 - scoreboardbtn.width / 2,
-    windowHeight / 2 + 150
+    windowHeight / 2 + 250
   );
-  scoreboardbtn.mousePressed(goToScoreboard);
+  scoreboardbtn.mousePressed(() => window.location.href = "./scoreboard.html");
   noLoop();
-}
-
-function goToScoreboard() {
-  window.location.href = "./scoreboard.html";
 }
 
 function Dead() {
@@ -137,6 +133,7 @@ function send() {
       })
       .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
+        input.value("")
       })
       .catch(function(error) {
         console.error("Error adding document: ", error);

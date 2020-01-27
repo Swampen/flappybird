@@ -38,12 +38,6 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 
-db.collection("users").get().then((querySnapshot) => {
-  querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
-  });
-});
-
 function setup() {
   createCanvas(windowWidth, windowHeight);
   clouds = [
@@ -123,8 +117,18 @@ function Dead() {
 function send() {
   input.hide();
   submit.hide();
-  //Submit here
-  //save score and input.value()
+  if (input.value()) {
+    db.collection("scoreboard").add({
+        name: input.value(),
+        score: score
+      })
+      .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+        console.error("Error adding document: ", error);
+      });
+  }
 }
 
 function restart() {
@@ -217,9 +221,7 @@ function CreateColumn() {
   var newCol = {
     columnXPos: windowWidth,
     columnTopYHeight: randVal,
-    //columnTopYHeight: windowHeight - randVal - 250,
     columnBottomYPos: randVal + 250,
-    //columnBottomYPos: windowHeight - randVal,
     height: windowHeight,
     width: columnWidth
   };
@@ -236,8 +238,8 @@ function keyPressed() {
   }
 }
 
-function jump(){
-  birdSpeed = birdJump
+function jump() {
+  birdSpeed = birdJump;
 }
 
 function getRndInteger(min, max) {

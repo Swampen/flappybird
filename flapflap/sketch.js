@@ -70,11 +70,11 @@ function draw() {
 
 function UpdateBackground() {
   imageMode(CORNER);
-  let screen = windowWidth; 
+  let screen = windowWidth;
   let xpos = 0;
-  
+
   while (xpos < screen) {
-    console.log(xpos, screen)
+    console.log(xpos, screen);
     image(
       backgroundImage,
       0 + xpos,
@@ -97,14 +97,17 @@ function Start() {
   button = createButton("START");
   button.position(windowWidth / 2 - button.width / 2, windowHeight / 2 + 100);
   button.mousePressed(restart);
-  scoreboardbtn = createButton("SCOREBOARD")
-  scoreboardbtn.position(windowWidth / 2 - scoreboardbtn.width / 2, windowHeight / 2 + 150);
+  scoreboardbtn = createButton("SCOREBOARD");
+  scoreboardbtn.position(
+    windowWidth / 2 - scoreboardbtn.width / 2,
+    windowHeight / 2 + 150
+  );
   scoreboardbtn.mousePressed(goToScoreboard);
   noLoop();
 }
 
-function goToScoreboard(){
-  window.location.href  = "./scoreboard.html"
+function goToScoreboard() {
+  window.location.href = "./scoreboard.html";
 }
 
 function Dead() {
@@ -116,16 +119,20 @@ function Dead() {
   birdSpeed = 0;
   button.textContent = "Restart";
   button.show();
-  submit.show();
-  input.show();
+  if (score > 0) {
+    submit.show();
+    input.show();
+  }
   noLoop();
 }
 
 function send() {
   input.hide();
   submit.hide();
+  scoreboardbtn.show();
   if (input.value()) {
-    db.collection("scoreboard").add({
+    db.collection("scoreboard")
+      .add({
         name: input.value(),
         score: score
       })
@@ -148,6 +155,7 @@ function restart() {
   button.hide();
   submit.hide();
   input.hide();
+  scoreboardbtn.hide();
   loop();
 }
 

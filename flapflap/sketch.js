@@ -24,6 +24,26 @@ let input;
 let backgroundImage;
 let backgroundPos = [];
 
+// Your web app's Firebase configuration
+var firebaseConfig = {
+  apiKey: "AIzaSyCCfmMisfHuRmqj80OXaZHIKanapblScNI",
+  authDomain: "flappybird-scoreboard-kode.firebaseapp.com",
+  databaseURL: "https://flappybird-scoreboard-kode.firebaseio.com",
+  projectId: "flappybird-scoreboard-kode",
+  storageBucket: "flappybird-scoreboard-kode.appspot.com",
+  messagingSenderId: "222979090768",
+  appId: "1:222979090768:web:a2686312cebc92e4012455"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
+
+db.collection("users").get().then((querySnapshot) => {
+  querySnapshot.forEach((doc) => {
+      console.log(`${doc.id} => ${doc.data()}`);
+  });
+});
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   clouds = [

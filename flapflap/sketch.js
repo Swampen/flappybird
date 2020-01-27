@@ -70,10 +70,11 @@ function draw() {
 
 function UpdateBackground() {
   imageMode(CORNER);
-  let w = backgroundImage.width;
+  let screen = windowWidth; 
   let xpos = 0;
-
-  while (w / windowWidth > 0) {
+  
+  while (xpos < screen) {
+    console.log(xpos, screen)
     image(
       backgroundImage,
       0 + xpos,
@@ -81,8 +82,7 @@ function UpdateBackground() {
       backgroundImage.width + 20,
       windowHeight + 20
     );
-    w = w / windowWidth;
-    xpos = backgroundImage.width;
+    xpos += backgroundImage.width;
   }
 }
 
@@ -97,7 +97,14 @@ function Start() {
   button = createButton("START");
   button.position(windowWidth / 2 - button.width / 2, windowHeight / 2 + 100);
   button.mousePressed(restart);
+  scoreboardbtn = createButton("SCOREBOARD")
+  scoreboardbtn.position(windowWidth / 2 - scoreboardbtn.width / 2, windowHeight / 2 + 150);
+  scoreboardbtn.mousePressed(goToScoreboard);
   noLoop();
+}
+
+function goToScoreboard(){
+  window.location.href  = "./scoreboard.html"
 }
 
 function Dead() {

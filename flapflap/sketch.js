@@ -25,7 +25,7 @@ let backgroundImage;
 let backgroundPos = [];
 
 // Your web app's Firebase configuration
-var firebaseConfig = {
+let firebaseConfig = {
   apiKey: "AIzaSyCCfmMisfHuRmqj80OXaZHIKanapblScNI",
   authDomain: "flappybird-scoreboard-kode.firebaseapp.com",
   databaseURL: "https://flappybird-scoreboard-kode.firebaseio.com",
@@ -74,7 +74,6 @@ function UpdateBackground() {
   let xpos = 0;
 
   while (xpos < screen) {
-    console.log(xpos, screen);
     image(
       backgroundImage,
       0 + xpos,

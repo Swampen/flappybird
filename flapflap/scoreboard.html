@@ -2,11 +2,11 @@
 
 <head>
   <link rel="stylesheet" href="../css/bootstrap.min.css">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
   <title>Scoreboard</title>
   <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
@@ -18,12 +18,33 @@
   body {
     background-image: url("./assets/background.png");
     background-size: 900px 100%;
-    background-repeat: repeat-x;
+    background-repeat: repeat;
   }
 </style>
 <script>
   $(function () {
+    let firebaseConfig = {
+      apiKey: "AIzaSyCCfmMisfHuRmqj80OXaZHIKanapblScNI",
+      authDomain: "flappybird-scoreboard-kode.firebaseapp.com",
+      databaseURL: "https://flappybird-scoreboard-kode.firebaseio.com",
+      projectId: "flappybird-scoreboard-kode",
+      storageBucket: "flappybird-scoreboard-kode.appspot.com",
+      messagingSenderId: "222979090768",
+      appId: "1:222979090768:web:a2686312cebc92e4012455"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.firestore();
 
+    db.collection("scoreboard").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      $(".context").append(`<tr>
+              <th scope="row">${doc.data().name}</th>
+              <td>${doc.data().score}</td>
+            </tr>`)
+        console.log(doc.data());
+    });
+});
   })
 </script>
 
@@ -35,15 +56,11 @@
         <table class="table table-striped table-dark table-bordered">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
+              <th scope="col">Name</th>
+              <th scope="col">Score</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-            </tr>
+          <tbody class="context">
           </tbody>
         </table>
       </div>
